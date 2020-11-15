@@ -1,0 +1,69 @@
+<ul id="person">
+                  <li v-for = "(user, index ) in users" :key="user.id">
+                  <a  v-on:click="() => displayPosts(user.id)" >{{ user.name }}
+
+                  </a>
+
+
+                      <div  ><!--v-if="ownerPost.userId == user.id"  -->
+
+                        <ul>
+                          <li v-for = "( post, index ) in ownerPost" v-if="post.userId == user.id" v-bind:key="index">
+                           <div><h3>{{ post.title }}</h3></div>
+                           <div><p>{{ post.body }}</p></div>
+                          </li>
+                        </ul>
+
+                      </div>
+
+                 </li>
+
+
+                </ul>
+
+
+  <div class="row">
+               <table class="table table-responsive-sm table-hover table-outline mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th class="text-center">
+                      <svg class="c-icon">
+                        <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-people"></use>
+                      </svg>
+                    </th>
+                    <th>User</th>
+                    <th class="text-center">Post</th>
+                  </tr>
+                </thead>
+                <tbody id="person">
+                  <tr v-for = "(user, index ) in users" :key="user.id" v-if="users">
+                    <td class="text-center" >
+                      <div class="c-avatar"><img class="c-avatar-img" src="assets/img/avatars/1.jpg" alt="user@email.com"><span class="c-avatar-status bg-success"></span></div>
+                    </td>
+                    <td>
+                      <div v-show="loading">Loading some data</div>
+                      <div v-on:click="() => displayPosts(user.id)"
+                          data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+                        >{{ user.name }}</div>
+                      <div class="small text-muted"><span>New</span> | Registered: Jan 1, 2015</div>
+                    </td>
+                    <td class="text-center">
+                        <p><button v-on:click="() => displayPosts(user.id)" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Post of User</button>
+                        </p>
+                      <div class="card-body">
+                        <div class="fade-in">
+                        <div class="collapse" id="collapseExample">
+                          <div v-show="loading">Loading some data</div>
+                          <div class="card card-body"
+                          v-for = "( post, index ) in ownerPost" v-if="post.userId == user.id" v-bind:key="index"
+                          ><div><h3 v-on:click="displayBody(post)">{{ post.title }}</h3></div>
+                           <div v-if="post.showPost"><p >{{ post.body }}</p></div>
+                         </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
